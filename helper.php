@@ -545,18 +545,22 @@ class helper_plugin_tagfilter extends DokuWiki_Plugin
         $matchedTags = [];
         foreach ($indexTags as $tag) {
             foreach ($tags as $tagExpr) {
-                if ($this->matchesTagExpression($tagExpr, $tag))
-                    $matchedTags[] = $tag;
+                if ($this->matchesTagExpression($tagExpr, $tag)) {
+                    if (strpos($tagExpr, ':') !== false && strpos($tag, ':') === false) {
+                        $matchedTags[$tag . ':'] = $tag;
+                    } else {
+                        $matchedTags[$tag] = $tag;
+                    }
+                }
             }
         }
-        $matchedTags = array_unique($matchedTags);
 
         $matchedPages = [];
-        foreach ($matchedTags as $tag) {
-            $pages = $this->taghelper->getIndexedPagesMatchingTagQuery([$tag]);
+        foreach ($matchedTags as $normalizedTag => $realTag) {
+            $pages = $this->taghelper->getIndexedPagesMatchingTagQuery([$realTag]);
 
             // keep only if in requested ns
-            $matchedPages[$tag] = array_filter($pages, function ($pageid) use ($ns) {
+            $matchedPages[$normalizedTag] = array_filter($pages, function ($pageid) use ($ns) {
                 return $ns === '' || strpos(':' . getNS($pageid) . ':', ':' . $ns . ':') === 0;
             });
         }
