@@ -90,7 +90,17 @@ class helper_plugin_tagfilter extends DokuWiki_Plugin
      */
     public function matchesTagExpression($tagExpression, $tag)
     {
-        return (bool)@preg_match('/^' . $tagExpression . '$/i', $tag);
+        $pattern = '/^' . $tagExpression . '$/i';
+        if ((bool)@preg_match($pattern, $tag)) {
+            return true;
+        }
+
+        // Treat empty values as valid when tag value is omitted (e.g. "status:" stored as "status").
+        if (strpos($tag, ':') === false && strpos($tagExpression, ':') !== false) {
+            return (bool)@preg_match($pattern, $tag . ':');
+        }
+
+        return false;
     }
 
     /**
