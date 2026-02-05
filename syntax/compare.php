@@ -115,7 +115,7 @@ class syntax_plugin_tagfilter_compare extends syntax_plugin_tagfilter_filter
             $form->addElement('<thead>');
             $form->addElement('<tr>');
             $form->addElement('<th>');
-            $form->addElement(hsc('Tags'));
+            $form->addElement(hsc($this->getLang('tags_header')));
             $form->addElement('</th>');
 
             for ($ii = 0; $ii < 4; $ii++) {
@@ -166,7 +166,7 @@ class syntax_plugin_tagfilter_compare extends syntax_plugin_tagfilter_filter
 
             $form->addElement('<tr>');
             $form->addElement('<th>');
-            $form->addElement('Link');
+            $form->addElement($this->getLang('link'));
             $form->addElement('</th>');
 
             for ($ii = 0; $ii < 4; $ii++) {
@@ -174,7 +174,7 @@ class syntax_plugin_tagfilter_compare extends syntax_plugin_tagfilter_filter
                 $form->addElement('<th>');
 
                 if (!empty($selectedValues[$ii])) {
-                    $form->addElement('<a href="' . wl($selectedValues[$ii]) . '" class="wikilink1">Link</a>');
+                    $form->addElement('<a href="' . wl($selectedValues[$ii]) . '" class="wikilink1">' . $this->getLang('link') . '</a>');
                 }
 
                 $form->addElement('</th>');

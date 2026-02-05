@@ -410,7 +410,7 @@ class syntax_plugin_tagfilter_filter extends DokuWiki_Syntax_Plugin
             $form->addElement(form_makeListboxField($label, $tags, $selectedTags, $label, $id, 'tagfilter', $attrs));
         }
 
-        $form->addElement(form_makeButton('button', '', $this->getLang('Delete filter'), ['onclick' => 'tagfilter_cleanform(' . $opt['id'] . ',true)']));
+        $form->addElement(form_makeButton('button', '', $this->getLang('delete_filter'), ['onclick' => 'tagfilter_cleanform(' . $opt['id'] . ',true)']));
         if ($flags['count']) {
             $form->addElement('<div class="tagfilter_count">' . $this->getLang('found_count') . ': ' . '<span class="tagfilter_count_number"></span></div>');
         }

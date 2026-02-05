@@ -52,9 +52,9 @@ class action_plugin_tagfilter extends DokuWiki_Action_Plugin
     {
         $event->data[] = [
             'type' => 'format',
-            'title' => 'Tagfilter plugin',
+            'title' => $this->getLang('toolbar_title'),
             'icon' => '../../plugins/tagfilter/tagfilter.png',
-            'sample' => '<namespace>? <Label>=<TagAusdruck>=<Tags Selected>|... &<pagelistoptions (&multi&nouser&chosen)>',
+            'sample' => $this->getLang('toolbar_sample'),
             'open' => '{{tagfilter>',
             'close' => '}}',
             'insert' => '',

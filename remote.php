@@ -19,14 +19,14 @@ class remote_plugin_tagfilter extends DokuWiki_Remote_Plugin
     public function getTagsByPage($id)
     {
         if (auth_quickaclcheck($id) < AUTH_READ) {
-            throw new AccessDeniedException('You are not allowed to read this file', 111);
+            throw new AccessDeniedException($this->getLang('access_denied'), 111);
         }
 
         /** @var helper_plugin_tagfilter $Htagfilter */
         $Htagfilter = $this->loadHelper('tagfilter', false);
         if (!$Htagfilter) {
             /*Exeption*/
-            throw new AccessDeniedException('problem with helper plugin', 99999);
+            throw new AccessDeniedException($this->getLang('helper_error'), 99999);
         }
         return $Htagfilter->getTagsByPageID($id);
     }
@@ -41,7 +41,7 @@ class remote_plugin_tagfilter extends DokuWiki_Remote_Plugin
         $Htagfilter = $this->loadHelper('tagfilter', false);
         if (!$Htagfilter) {
             /*Exeption*/
-            throw new AccessDeniedException('problem with helper plugin', 99999);
+            throw new AccessDeniedException($this->getLang('helper_error'), 99999);
         }
 
         $pages = $Htagfilter->getPagesByTags($ns, $tags);
